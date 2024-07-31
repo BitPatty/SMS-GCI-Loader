@@ -10,8 +10,7 @@ This is used within the [GCT Generator](https://github.com/BitPatty/gctGenerator
 - `include` contains the header files
 - `source` directory contains the loader code itself that is used to read the GCI file from the memory card.
 
-### How it works
-
+## How it works
 
 The loader code uses the system and game APIs to read data from the memory card. The `main.c` contains a hook `onReadOptionsBlock` that intercepts the initial memory card read from the game itself. It then first loads the codes from the memory card into memory and then the actual game file that the game tries to access.
 
@@ -22,8 +21,8 @@ The loader code uses the system and game APIs to read data from the memory card.
 5. The memory card is opened (restore of the overriden call)
 6. The process is marked as DONE (2)
 7. The gosub is called which,
-    7.1 backs up the link register in `GCTDST.returnAddr`
-    7.2 sets the link register to the `GCTDST.code` and blr's to it
+   7.1 backs up the link register in `GCTDST.returnAddr`
+   7.2 sets the link register to the `GCTDST.code` and blr's to it
 8. The code handler continues
 9. The code handler blr's to address stored in `GCTDST.returnAddr`
 
@@ -31,8 +30,8 @@ Note: For the last step to work the GCT is expected to end with the following in
 
 ```asm
 lis r3, 0x817F
-lwz r15, 0x17fc(r3)  ; GMDST
-sub r15, r4, r15     ; r15 = current instruction - r15
+lwzu r15, 0x17fc(r3)  ; GMDST
+sub r15, r4, r15      ; r15 = current instruction - r15
 blr
 ```
 
