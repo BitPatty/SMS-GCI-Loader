@@ -28,5 +28,5 @@ jobs:
           name: build-output-${{ matrix.version }}
           path: |
             out
-            gecko
+            gecko/out
           retention-days: 7
