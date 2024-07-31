@@ -30,8 +30,4 @@ s32 CARDRead(CARDFileInfo *fileInfo, void *addr, s32 length, s32 offset);
 s32 CARDClose(CARDFileInfo *fileInfo);
 s32 CARDUnmount(s32 chan);
 
-// typedef void (*CARDCallback)(s32 chan, s32 result);
-// s32 CARDProbeEx(s32 chan, s32 *memSize, s32 *sectorSize);
-// s32 CARDMount(s32 chan, void *workArea, CARDCallback detachCallback);
-
 #endif

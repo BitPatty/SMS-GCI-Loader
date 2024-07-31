@@ -16,9 +16,9 @@
 // data, based on the current usage
 // See: https://github.com/BitPatty/gctGenerator/blob/375ba5eb73e50894d4e765fdfddbe004e3b4949d/Readme.md#reserved-memory
 // Range: 0x817F0000 - 0x817F1000
-#define ADDR_GECKO_HEAP_START 0x817F0000
-#define ADDR_GECKO_HEAP_SIZE  0x00001000
-#define ADDR_GECKO_HEAP_END (ADDR_GECKO_HEAP_START + ADDR_GECKO_HEAP_SIZE)
+// #define ADDR_GECKO_HEAP_START 0x817F0000
+// #define ADDR_GECKO_HEAP_SIZE  0x00001000
+// #define ADDR_GECKO_HEAP_END (ADDR_GECKO_HEAP_START + ADDR_GECKO_HEAP_SIZE)
 // GCTDST = 0x817F1000; // in ldscripts/sms.ld
 
 extern struct GCTBuffer {

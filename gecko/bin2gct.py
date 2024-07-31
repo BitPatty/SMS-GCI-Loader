@@ -1,3 +1,12 @@
+#################################################################
+#
+# bin2gct.py
+#
+# This script converts binaries to gecko codes
+#
+#################################################################
+
+
 import sys
 import os
 from GeckoFactory import int2bytes, make06, makeC0
@@ -10,6 +19,7 @@ validArguments = '''
 def exitInvalidSyntax(arg):
   print('Invalid argument `%s`\nValid arguments:\n%s'%(arg, validArguments))
   sys.exit(1)
+
 def exitMessage(msg):
   print(msg)
   sys.exit(1)
@@ -58,19 +68,26 @@ if __name__ == '__main__':
     toks = arg0.split(':', 1)
     if len(toks) != 2: exitInvalidSyntax(arg)
     ct, arg = toks
+
     if ct == 'C0':
       code += makeC0(arg)
     elif ct == 'hook':
       args = arg.split(':')
       if len(args) < 3: exitInvalidSyntax(arg)
       fnMap, fnBin, *entries = args
-      ## parse map file
+
+      # load the .text section from the map file
+      # as symbol: address map
       sections, symbols = parseMap(fnMap)
       assert '.text' in sections, f'.text section does not exists in file {fnMap}'
       dst = sections['.text']
-      ## 06
+
+      # write whole binary as 06 gecko code (06)
       code += make06(dst, fnBin)
-      ## 04 entries
+
+      # 04 entries
+      # either supplied as key/value pair (key=value) or symbol
+      # for symbols the address is looked up in the CSV, else it's the value
       for entry in entries:
         toks = entry.split('=')
         name = toks[0]
@@ -88,11 +105,15 @@ if __name__ == '__main__':
             exitInvalidSyntax(arg)
         else:
           exitInvalidSyntax(arg)
+
+        # Ensure the symbol was found in the map file
         assert name in symbols, f'symbol `{name}` does not exists in file {fnMap}'
+
+        # Calculate the offset and overwrite the hook address with a
+        # PPC branch instruction from the hook to the address
         addr1 = symbols[name]
         dis = addr1 - addr0
         assert -0x200_0000 <= dis < 0x200_0000, 'too far to branch from %s(%08X) to %08X'%(name, addr0, addr1)
-        ## make 04
         code += int2bytes(0x0400_0000 | addr0 & 0x1ff_ffff)
         code += int2bytes(0x4800_0001 | dis   & 0x3ff_ffff)
     else:

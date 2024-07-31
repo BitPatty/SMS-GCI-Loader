@@ -1,3 +1,12 @@
+#################################################################
+#
+# bin2gct.py
+#
+# This script converts raw data to gecko codes
+#
+#################################################################
+
+
 def int2bytes(x):
   return x.to_bytes(4, 'big')
 
@@ -15,6 +24,10 @@ def makeC0(arg):
   raw = b'\xC0\x00\x00\x00' + int2bytes(len(raw) >> 3) + raw
   return raw
 
+# 06______ YYYYYYYY
+# Patch code (ba) d1d2d3d4 d5d6d7d8...
+# writes d1d2d3d4 d5d6d7d8... at ba+address.
+# YYYYYYYY is the number of bytes to write
 def make06(dst, fn):
   ## read bin file
   with open(fn, 'rb') as f:
