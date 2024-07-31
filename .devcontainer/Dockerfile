@@ -1,4 +1,4 @@
-FROM devkitpro/devkitppc:20210726
+FROM devkitpro/devkitppc:20240702
 
 RUN useradd -ms /bin/bash dev \
     && usermod -aG sudo dev

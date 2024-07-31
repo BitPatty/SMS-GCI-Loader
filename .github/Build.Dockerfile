@@ -1,4 +1,4 @@
-FROM devkitpro/devkitppc:20210726
+FROM devkitpro/devkitppc:20240702
 ARG GAME_VERSION
 
 ENV PATH="${PATH}:/opt/devkitpro/devkitPPC/bin"
