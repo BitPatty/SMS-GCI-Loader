@@ -1,8 +1,7 @@
 #include "card.h"
 
-// TODO: we need to keep some space to store this loader code
-// #define DST_END ArenaHi
-#define DST_END 0x817FE800
+// The codes can fill up everything up to the loader code itself
+#define DST_END 0x817FD800
 
 int loadCard(TCardManager *cm, CARDFileInfo *fileInfo, char *fileName, u32 *dst)
 {
