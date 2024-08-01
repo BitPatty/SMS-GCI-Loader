@@ -43,7 +43,9 @@ C0000000 00000002
 7DE47850 4E800020
 ```
 
-### Sample gecko code producedx§
+### Sample gecko code produced
+
+Note: The gosub MUST be right after the loader code
 
 ```
 077FD800 0000058A  # Gecko
